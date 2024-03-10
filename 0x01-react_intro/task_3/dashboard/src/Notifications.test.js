@@ -1,43 +1,29 @@
-import React from 'react';
-import './Notifications.css';
-import icon from './close-icon.png';
-import { getLatestNotification } from './utils';
+import React from "react";
+import { shallow } from "enzyme";
+import Notifications from "./Notifications";
 
-function Notifications() {
-  return (
-    <div className='Notifications'>
-      <button
-        style={{
-          position: 'relative',
-          width: '100%',
-          border: 'none',
-          background: 'none',
-          textAlign: 'right',
-          padding: '0',
-        }}
-        aria-label='Close'
-        onClick={console.log('Close button has been clicked')}
-      >
-        <img
-          src={icon}
-          alt='Close'
-          styles={{
-            width: '2em',
-            height: '0.1rem',
-          }}
-        />
-      </button>
-      <p>Here is the list of notifications</p>
-      <ul>
-        <li data='default'>New course available</li>
-        <li data='urgent'>New resume available</li>
-        <li
-          data='urgent'
-          dangerouslySetInnerHTML={{ __html: getLatestNotification() }}
-        ></li>
-      </ul>
-    </div>
-  );
-}
+describe("Notification component tests", () => {
+  it("renders Notification component without crashing", () => {
+    const notification = shallow(<Notifications />);
 
-export default Notifications;
+    expect(notification).toBeDefined();
+  });
+
+  it("renders ul", () => {
+    const notification = shallow(<Notifications />);
+
+    expect(notification.find("ul")).toBeDefined();
+  });
+
+  it("renders three list items", () => {
+    const notification = shallow(<Notifications />);
+
+    expect(notification.find("li")).toHaveLength(3);
+  });
+
+  it("renders correct text", () => {
+    const notification = shallow(<Notifications />);
+
+    expect(notification.find("p").text()).toBe("Here is the list of notifications");
+  });
+});
