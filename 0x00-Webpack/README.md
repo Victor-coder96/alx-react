@@ -1,1 +1,1 @@
-Creating and running Webpack using a basic installation.
+# Alx Webpack project
